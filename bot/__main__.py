@@ -10,16 +10,25 @@ TOKEN = ""
 bot = Bot(TOKEN, parse_mode="HTML")
 
 ADMIN_ID = 1234567  # Place your Telegram ID here
-admin_router.message.filter(F.chat.id == ADMIN_ID)
-
-dp = Dispatcher()
-dp.include_router(admin_router)
-dp.include_router(user_router)
 
 
 async def main() -> None:
+    # Initialize bot and dispatcher
+    bot = Bot(TOKEN, parse_mode="HTML")
+    dp = Dispatcher()
+
+    # Add admin filter to admin_router
+    admin_router.message.filter(F.chat.id == ADMIN_ID)
+
+    # Add routers to dispatcher
+    dp.include_router(admin_router)
+    dp.include_router(user_router)
+
+    # [optional] Skip pending updates
+    # await bot.delete_webhook(drop_pending_updates=True)
+
+    # Run polling
     await dp.start_polling(bot)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+asyncio.run(main())
