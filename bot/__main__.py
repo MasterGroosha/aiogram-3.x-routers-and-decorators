@@ -7,8 +7,6 @@ from bot.handlers.for_everyone import user_router
 
 
 TOKEN = ""
-bot = Bot(TOKEN, parse_mode="HTML")
-
 ADMIN_ID = 1234567  # Place your Telegram ID here
 
 
